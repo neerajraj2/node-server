@@ -4,6 +4,8 @@ const fs = require('fs');
 
 var app = express();
 
+const port = process.env.port || 2000;
+
 hbs.registerPartials(__dirname + '/views/partial');
 hbs.registerHelper('getCurrentYear',()=>{
 return new Date().getFullYear();
@@ -20,7 +22,7 @@ app.use((req,res,next)=>{
         if(err){
             console.log('unable to write in file.');
         }
-    })
+    });
 
 next();
 })
@@ -38,4 +40,6 @@ app.get('/about',(req, res)=>{
 });
 
 
-app.listen(2000);
+app.listen(port,()=>{
+    console.log(`server is up and runnng on port ${port}`)
+});
